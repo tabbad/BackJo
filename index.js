@@ -17,10 +17,11 @@ app.get('/home', (req, res) => {
    //return data 
     //res.send(accounts)
    // res.status(200).json('Welcome, your app is working well');
- // var account = readAccount();
+  var account = readAccount();
     //res.status(200).send({account: account});
     const jsonData = {
         message: 'Hello, this is your JSON data!',
+        test:account
       };
     
     res.json(jsonData);
