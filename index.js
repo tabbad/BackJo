@@ -13,7 +13,6 @@ app.get('/home', (req, res) => {
     //res.send(accounts)
     res.status(200).json('Welcome, your app is working well');
 
-
 })
 
 
