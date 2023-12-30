@@ -9,7 +9,9 @@ const accounts = JSON.parse(data);
 
 
 app.get('/home', (req, res) => {
-  res.status(200).json(accounts);
+    console.log(data);
+    console.log(accounts);
+  res.status(200).json(data);
 })
 
 
