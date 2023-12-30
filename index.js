@@ -4,7 +4,7 @@ const app = express()
 const PORT = 4000
 //read account.json file
 const fs = require('fs');
-const data = fs.readFileSync('./account.json');
+const data = await fs.readFile(process.cwd() + 'account.json', 'utf8');
 const accounts = JSON.parse(data);
 
 
