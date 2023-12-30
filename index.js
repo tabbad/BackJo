@@ -12,6 +12,9 @@ app.get('/home', (req, res) => {
    //return all accounts
     res.json(accounts);
 })
+app.get('/test', (req, res) => {
+    res.status(200).json('Welcome, your app is working well');
+  })
 
 
 
