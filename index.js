@@ -3,7 +3,12 @@ const express = require('express')
 const app = express()
 const PORT = 4000
 //read account.json file
-//const fs = require('fs');
+const fs = require('fs');
+
+function readAccount() {
+  var file = fs.readFileSync('account.json', 'utf8');
+  return JSON.parse(file);
+}
 //const data = fs.readFileSync('account.json');
 //const accounts = JSON.parse(data);
 
@@ -11,7 +16,9 @@ const PORT = 4000
 app.get('/home', (req, res) => {
    //return data 
     //res.send(accounts)
-    res.status(200).json('Welcome, your app is working well');
+   // res.status(200).json('Welcome, your app is working well');
+  var account = readAccount();
+  res.send(account);
 
 })
 
