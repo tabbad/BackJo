@@ -7,7 +7,7 @@ const fs = require('fs');
 
 function readAccount() {
   var file = fs.readFileSync('account.json', 'utf8');
-  return file;
+  return JSON.parse(file);
 }
 //const data = fs.readFileSync('account.json');
 //const accounts = JSON.parse(data);
@@ -20,9 +20,10 @@ app.get('/home', (req, res) => {
   var account = readAccount();
     //res.status(200).send({account: account});
     const jsonData = {
-        message: 'Hello, this is your JSON data!',
-        test: account
-      };
+        message: 'on sen fou' ,
+        name: account[0].name,
+        score: account[0].score
+        }
     
     res.json(jsonData);
 
