@@ -10,7 +10,9 @@ const PORT = 4000
 
 app.get('/home', (req, res) => {
    //return data 
-    res.send("accounts")
+    //res.send(accounts)
+    res.status(200).json('Welcome, your app is working well');
+
 
 })
 
