@@ -18,7 +18,7 @@ app.get('/home', (req, res) => {
     //res.send(accounts)
    // res.status(200).json('Welcome, your app is working well');
   var account = readAccount();
-    res.status(200).json(account);
+    res.status(200).send({account: account});
 
 })
 
