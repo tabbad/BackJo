@@ -21,7 +21,7 @@ app.get('/home', (req, res) => {
     //res.status(200).send({account: account});
     const jsonData = {
         message: 'Hello, this is your JSON data!',
-        test:account
+        test: account
       };
     
     res.json(jsonData);
