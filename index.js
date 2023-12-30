@@ -9,10 +9,10 @@ const accounts = JSON.parse(data);
 
 
 app.get('/home', (req, res) => {
-    console.log(data);
-    console.log(accounts);
-  res.status(200).json(data);
+   //return all accounts
+    res.json(accounts);
 })
+
 
 
 app.listen(PORT, () => {
