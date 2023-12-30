@@ -7,7 +7,7 @@ const fs = require('fs');
 
 function readAccount() {
   var file = fs.readFileSync('account.json', 'utf8');
-  return JSON.parse(file);
+  return file;
 }
 //const data = fs.readFileSync('account.json');
 //const accounts = JSON.parse(data);
