@@ -60,7 +60,7 @@ app.post('/modifier-json', (req, res) => {
 
 
     // Écrire les modifications dans le fichier JSON
-    fs.writeFile(filePath, newData, 'utf8', (err) => {
+    fs.writeFile(filePath, JSON.stringify(newData, null, 2), 'utf8', (err) => {
       if (err) {
         console.error('Erreur lors de l\'écriture du fichier JSON :', err);
         res.status(500).json({ error: 'Erreur lors de l\'écriture du fichier JSON' ,json: newData });
