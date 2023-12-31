@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const PORT = 4000
 //read account.json file
+const path = require('path');
 const fs = require('fs');
 
 function readAccount() {
@@ -20,6 +21,25 @@ app.get('/home', (req, res) => {
    
 
 })
+
+app.get('/recuperer-json', (req, res) => {
+  const filePath = path.join(__dirname, 'account.json'); // Remplacez 'nom-du-fichier.json' par le nom de votre fichier JSON
+
+  // Lire le fichier JSON depuis le système de fichiers
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Erreur lors de la lecture du fichier JSON :', err);
+      res.status(500).json({ error: 'Erreur lors de la lecture du fichier JSON' });
+      return;
+    }
+
+    // Parser le contenu du fichier JSON
+    const jsonData = JSON.parse(data);
+
+    // Renvoyer le fichier JSON en tant que réponse
+    res.json(jsonData);
+  });
+});
 
 
 
