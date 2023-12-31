@@ -16,16 +16,8 @@ function readAccount() {
 app.get('/home', (req, res) => {
    //return data 
     //res.send(accounts)
-   // res.status(200).json('Welcome, your app is working well');
-  var account = readAccount();
-    //res.status(200).send({account: account});
-    const jsonData = {
-        message: 'on sen fou' ,
-        name: account[0].name,
-        score: account[0].score
-        }
-    
-    res.json(jsonData);
+    res.status(200).json('Welcome, your app is working well');
+   
 
 })
 
