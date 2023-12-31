@@ -24,7 +24,7 @@ app.get('/home', (req, res) => {
 })
 
 app.get('/recuperer-json', (req, res) => {
-  const filePath = path.join(__dirname, 'account.json'); // Remplacez 'nom-du-fichier.json' par le nom de votre fichier JSON
+  const filePath = path.join(__dirname, 'account.json');
 
   // Lire le fichier JSON depuis le système de fichiers
   fs.readFile(filePath, 'utf8', (err, data) => {
@@ -55,7 +55,9 @@ app.post('/modifier-json', (req, res) => {
 
     // Modifier les données en fonction du corps de la requête POST
     const modifiedData = req.body; // Supposons que le corps de la requête POST contient les modifications nécessaires
-    const newData = { ...JSON.parse(data), ...modifiedData };
+    //const newData = { ...JSON.parse(data), ...modifiedData };
+    const newData = { modifiedData };
+
 
     // Écrire les modifications dans le fichier JSON
     fs.writeFile(filePath, JSON.stringify(newData, null, 2), 'utf8', (err) => {
