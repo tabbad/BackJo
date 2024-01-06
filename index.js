@@ -1,85 +1,41 @@
-// index.js
-const express = require('express')
-const bodyParser = require('body-parser');
+const express = require("express");
+const cors = require("cors");
+const User = require("./config");
+const app = express();
+app.use(express.json());
+app.use(cors());
 
-const app = express()
-const PORT = 4000
-//read account.json file
-const path = require('path');
-const fs = require('fs');
+app.get("/", async (req, res) => {
+  const snapshot = await User.get();
+  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  res.send(list);
+});
 
-function readAccount() {
-  var file = fs.readFileSync('account.json', 'utf8');
-  return JSON.parse(file);
-}
-//const data = fs.readFileSync('account.json');
-//const accounts = JSON.parse(data);
+app.post("/create", async (req, res) => {
+  await User.add({ ...req.body });
+  res.send({ msg: "User Added" });
+});
 
-app.use(bodyParser.json());
-
-app.get('/home', (req, res) => {
-   //return data 
-    //res.send(accounts)
-    res.status(200).json('Welcome, your app is working well');
-})
-
-app.get('/recuperer-json', (req, res) => {
-  const filePath = path.join(__dirname, 'account.json');
-
-  // Lire le fichier JSON depuis le système de fichiers
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Erreur lors de la lecture du fichier JSON :', err);
-      res.status(500).json({ error: 'Erreur lors de la lecture du fichier JSON' });
-      return;
+app.put("/update", async (req, res) => {
+  const snapshot = await User.get();
+  console.log("ma requete");
+  console.log(req.body.UserName);
+  snapshot.docs.forEach(async (doc) => {
+    if (doc.data().UserName === req.body.UserName) {
+      await User.doc(doc.id).update( { ...req.body } );
     }
-
-    // Parser le contenu du fichier JSON
-    const jsonData = JSON.parse(data);
-
-    // Renvoyer le fichier JSON en tant que réponse
-    res.json(jsonData);
-  });
+  }
+  );
+  res.send({ msg: "Updated" });
 });
 
-app.post('/modifier-json', (req, res) => {
-  const filePath = path.join(__dirname, 'account.json');
-
-  // Lire le fichier JSON depuis le système de fichiers
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Erreur lors de la lecture du fichier JSON :', err);
-      res.status(500).json({ error: 'Erreur lors de la lecture du fichier JSON' });
-      return;
+app.delete("/delete", async (req, res) => {
+  const snapshot = await User.get();
+  snapshot.docs.forEach(async (doc) => {
+    if (doc.data().UserName === req.body.UserName) {
+      await User.doc(doc.id).delete();
     }
-
-    const jsonData = JSON.parse(data);
-
-    // Mettre à jour les données avec celles reçues dans la requête
-    const updatedData = Object.assign({}, jsonData, req.body);
-
-
-
-    // Écrire les modifications dans le fichier JSON
-    fs.writeFile(filePath, JSON.stringify(updatedData, null, 2), 'utf8', (err) => {
-      if (err) {
-        console.error('Erreur lors de l\'écriture du fichier JSON :', err);
-        res.status(500).json({ error: 'Erreur lors de l\'écriture du fichier JSON' ,json: updatedData });
-        return;
-      }
-
-      res.json({ message: 'Fichier JSON modifié avec succès' });
-    });
   });
+  res.send({ msg: "Deleted" });
 });
-
-
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
-
-
-
-
-// Export the Express API
-module.exports = app
+app.listen(4000, () => console.log("Up & RUnning *4000"));
