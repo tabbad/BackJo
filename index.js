@@ -24,7 +24,7 @@ app.get('/home', (req, res) => {
 })
 
 app.get('/recuperer-json', (req, res) => {
-  const filePath = path.join(__dirname, 'test/account.json');
+  const filePath = path.join(__dirname, 'account.json');
 
   // Lire le fichier JSON depuis le système de fichiers
   fs.readFile(filePath, 'utf8', (err, data) => {
@@ -43,7 +43,7 @@ app.get('/recuperer-json', (req, res) => {
 });
 
 app.post('/modifier-json', (req, res) => {
-  const filePath = path.join(__dirname, 'test/account.json');
+  const filePath = path.join(__dirname, 'account.json');
 
   // Lire le fichier JSON depuis le système de fichiers
   fs.readFile(filePath, 'utf8', (err, data) => {
