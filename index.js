@@ -53,15 +53,18 @@ app.post('/modifier-json', (req, res) => {
       return;
     }
 
-    const modifiedData = req.body;
-    //const newData = { modifiedData };
+    const jsonData = JSON.parse(data);
+
+    // Mettre à jour les données avec celles reçues dans la requête
+    const updatedData = Object.assign({}, jsonData, req.body);
+
 
 
     // Écrire les modifications dans le fichier JSON
-    fs.writeFile(filePath, JSON.stringify(modifiedData, null, 2), 'utf8', (err) => {
+    fs.writeFile(filePath, JSON.stringify(updatedData, null, 2), 'utf8', (err) => {
       if (err) {
         console.error('Erreur lors de l\'écriture du fichier JSON :', err);
-        res.status(500).json({ error: 'Erreur lors de l\'écriture du fichier JSON' ,json: modifiedData });
+        res.status(500).json({ error: 'Erreur lors de l\'écriture du fichier JSON' ,json: updatedData });
         return;
       }
 
