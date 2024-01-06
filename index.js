@@ -53,10 +53,8 @@ app.post('/modifier-json', (req, res) => {
       return;
     }
 
-    // Modifier les données en fonction du corps de la requête POST
-    const modifiedData = req.body; // Supposons que le corps de la requête POST contient les modifications nécessaires
-    //const newData = { ...JSON.parse(data), ...modifiedData };
-    const newData = { modifiedData };
+    const modifiedData = req.body;
+    const newData = JSON.parse(modifiedData);
 
 
     // Écrire les modifications dans le fichier JSON
