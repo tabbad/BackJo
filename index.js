@@ -15,13 +15,12 @@ app.post("/create", async (req, res) => {
   await User.add({ ...req.body });
   res.send({ msg: "User Added" });
 });
-
 app.put("/update", async (req, res) => {
   const snapshot = await User.get();
   console.log("ma requete");
-  console.log(req.body.UserName);
+  console.log(req.body.username);
   snapshot.docs.forEach(async (doc) => {
-    if (doc.data().UserName === req.body.UserName) {
+    if (doc.data().username === req.body.username) {
       await User.doc(doc.id).update( { ...req.body } );
     }
   }
@@ -32,7 +31,7 @@ app.put("/update", async (req, res) => {
 app.delete("/delete", async (req, res) => {
   const snapshot = await User.get();
   snapshot.docs.forEach(async (doc) => {
-    if (doc.data().UserName === req.body.UserName) {
+    if (doc.data().username === req.body.username) {
       await User.doc(doc.id).delete();
     }
   });
